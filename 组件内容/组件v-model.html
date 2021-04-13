@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn stringtype="text" title="姓名" v-model="username"></cpn>
+        <cpn stringtype="password" title="密码" v-model="password"></cpn>
+        <cpn stringtype="number" title="年龄" v-model="age"></cpn>
+        <button @click="submitclick">submit</button>
+        <button @click="resetclick">reset</button>
+    </div><!--view-->
+
+
+<template id="app1">
+<div>
+    <label>{{title}}:</label>
+    <input :type="stringtype" @input="handleInput">
+</div>
+</template>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+         <script>
+        Vue.component("cpn",{
+            template:"#app1",
+            props:{
+                stringtype:String,
+                title:String,
+                value:String,
+            },
+            methods:{
+                handleInput(e){
+                    this.$emit("input",e.target.value)
+                }
+            }
+        })
+
+
+
+        
+        const app =new Vue({
+            el:"#app",
+            data:{
+                message:0,
+                username:"defaultusername",
+                password:"dtfaultpassword",
+                age:"18",
+            },
+            methods:{
+                submitclick(){
+                    console.log(this.username);
+                    console.log(this.password);
+                    console.log(this.age)
+                },
+                resetclick(){
+                    this.username="";
+                    this.age="";
+                    this.password="";
+                },
+            }
+        })
+    </script>
+</body>
+</html>

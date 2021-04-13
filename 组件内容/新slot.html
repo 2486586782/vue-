@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn>
+            <template #syntacticsugar><h1>语法糖</h1></template>
+            <template v-slot:left><button>确定</button></template>
+            <template v-slot:center><div >标题栏</div></template>
+            <template v-slot:right><button>返回</button> </template>
+             <!--新版插槽写法-->                 <!--新版插槽必须和template搭配使用-->
+        </cpn>
+    </div>
+
+
+    <template id="app1">
+    <div>
+    <slot name="syntacticsugar"></slot>
+    <slot name="left"></slot>
+    <slot name="center"></slot>
+    <slot name="right"></slot>
+    </div>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        Vue.component("cpn",{
+            template:"#app1",
+            data(){
+                return{
+                    message:"起灵"
+                }
+            }
+        })
+
+
+
+        const app=new Vue({
+            el:"#app",
+            data:{
+                mess:0
+            }
+        })
+    </script>
+</body>
+</html>
