@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn></cpn>
+        <cpn1></cpn1>
+    </div><!--view-->
+
+<template id="app1">
+<div>
+ <button @click="btnapp1">点击发布</button>
+</div>
+</template><!--创建cpn组件模板-->
+<template id="app2">
+<div>
+    订阅者：{{data}}
+</div>
+</template><!--创建cpn2组件模板-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+//中央事件总线
+const bus=new Vue()  //创建空的vue实例
+
+Vue.component("cpn",{
+    template:"#app1",
+    data(){
+        return{
+            mess:1
+        }},
+        methods:{
+            btnapp1(){
+                bus.$emit("person",this.mess)//通过bus.$emit发生
+            }
+        }
+})
+//创建cpn组件
+Vue.component("cpn1",{
+    template:"#app2",
+    data(){
+        return{
+            data:""
+        }
+    },
+    mounted(){
+        console.log("dom创建完会触发");
+        bus.$on("person",(data)=>{      //同过bus.$on监听
+            console.log("订阅者",data)
+            this.data=data;
+        })
+
+    }
+})//创建cpn1组件
+
+
+
+
+
+
+
+
+
+
+
+const app=new Vue({   //viewmodel
+el:"#app",       //model
+data:{
+    message:0
+},
+})
+    </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+用户名：<input type="text" v-model.lazy="message">
+年龄：<input type="number" v-model.number="age">
+密码：<input type="password" v-model.trim="password"/>
+<button @click="btn">提交</button>
+{{message}}
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  const app=new Vue({
+      el:"#app",
+      data:{
+    message:"",
+    age:18,
+    password:"",
+      },
+      methods:{
+          btn(){
+              console.log(this.message);
+              console.log(this.age);
+              console.log(this.password);
+              console.log(typeof(this.age))
+
+          }
+      }
+
+  })
+</script>
+</body>
+</html>

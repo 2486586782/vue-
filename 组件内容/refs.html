@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" ref="myref">
+        <div ref="mydivref">我可以</div>
+        <button @click="btnclick">
+        点击拿原生节点的值
+        </button>
+        <cpn ref="mycpn"></cpn>
+    </div><!--view-->
+
+    <template id="app1">
+        <div>
+        </div>
+    </template><!--cpn模板-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+    Vue.component("cpn",{
+        template:"#app1",
+        data(){
+            return{
+                mess:521
+            }
+        }
+    })//cpn组件
+
+
+const app=new Vue({
+            el:"#app",
+            data:{
+                message:"521"
+            },
+            methods:{
+                btnclick(){
+                    console.log(this.$refs.myref.value);  //点击拿原生节点的值
+                    console.log(this.$refs.mydivref);     //点击拿原生节点的属性
+                    console.log(this.$refs.mycpn._data.mess)  //拿到cpn组件的全部值
+                }
+            }
+        })
+    </script>
+</body>
+</html>

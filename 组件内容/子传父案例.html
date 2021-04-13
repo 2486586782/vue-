@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <cpn2 @change="change"></cpn2>
+        <cpn1 v-show="isshow"></cpn1>
+    </div><!--view-->
+
+    <template id="app1">
+    <div style="background-color: salmon;height: 500px;width: 200px;">
+        <ul>
+            <li>内容1</li>
+            <li>内容1</li>
+            <li>内容1</li>
+            <li>内容1</li>
+            <li>内容1</li>
+        </ul>
+    </div>
+    </template><!--全局组件cpn1-->
+    <template id="app2">
+        <div style="background-color: sandybrown;width: 100%;height: 44px;">
+            <button @click="btnclick">click</button>
+           </div>
+    </template><!--全局组件cpn2-->
+ <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+Vue.component("cpn1",{
+    template:"#app1",
+    data(){
+        return{
+            data:521
+        }
+    }
+})//组件cpn1*****************************************************************************
+
+Vue.component("cpn2",{
+    template:"#app2",
+    methods:{
+        btnclick(){
+            this.$emit("change")//发送事件
+        }
+    }
+})//组件cpn2********************************************************************************
+
+        const app =new Vue({  //viewmodel
+            el:"#app",
+            data:{
+                isshow:false
+            },      //model
+            methods:{
+               change(){
+                this.isshow=!this.isshow
+               }
+            },
+            computed:{}
+        })
+    </script>
+</body>
+</html>

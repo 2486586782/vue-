@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+<input type="checkbox" v-model="string">记住用户名
+<button @click="btn" :disabled="!string">登录</button>
+{{string}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const app=new Vue({
+            el:"#app",
+            data:{
+                string:false,
+            },
+            methods:{
+              /*  btn(){
+                   if(this.string===true){
+                       console.log("登录")
+                   }else{
+                     alert("你没有选中")
+                   }
+                } */
+                btn(){
+                   if(this.string===true){
+                      alert("登录成功")
+                   }
+                } 
+            }
+        })
+    </script>
+</body>
+</html>

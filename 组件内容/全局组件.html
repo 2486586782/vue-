@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>全局组件和子子组件模板</title>
+</head>
+<body>
+    <div id="app">
+    <cpn></cpn>
+    {{message}}
+    <cpn></cpn>
+    <cpn2></cpn2>
+    </div> 
+ <!--**************************view(视图)************************************-->
+<template id="app2">
+     <div>
+  <div>返回<button @click="btn01">返回</button></div>
+  <div><h1>全局组件{{data01}}</h1></div>
+  <div>确定<child></child></div>
+    </div>
+</template>
+ <!--***************************全局组件模板**************************************-->
+<template id="childcpn">
+<div>
+    <h1>全局组件模板的子组件模板</h1>
+</div>
+</template>
+<!--***************************全局组件模板的子组件模板**************************************-->
+<template id="app3">
+    <div>
+   <h1>子组件</h1>
+    </div>
+</template>  
+ <!--********************************子组件模板*************************************-->
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    Vue.component("cpn",{
+        template:"#app2",
+        data(){
+            return{data01:"我可以"}
+        },
+        methods:{
+            btn01(){console.log("我返回了") },
+        },
+        computed:{},
+        watch:{},
+
+        components:{
+            child:{
+                template:"#childcpn"//全局组件的子组件
+            }
+        }
+        })//全局组件
+
+
+
+
+
+
+    const app = new Vue({ //viewmodel
+        el:"#app",
+        data:{ 
+            message:521
+         },
+         components:{
+             cpn2:{
+                 template:"#app3"
+             }
+         }//子组件
+    })//model(模型)
+</script>
+</body>
+</html>

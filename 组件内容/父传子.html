@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+<navbar :message2="message"></navbar>
+<navbar2 mytitel="首页" :myshow="false"></navbar2>
+<navbar2 mytitel="导航栏" :myshow="true"></navbar2>
+<navbar2 mytitel="返回" :myshow="true"></navbar2>   <!--注意点：不加“：”则成字符串，使用要加“：”-->
+<navbar3 mytitle="我是全局组件3"></navbar3>
+<navbar3></navbar3>
+</div>
+<!--view-->
+
+
+
+<template id="app1">
+<div>
+    <h1>我是全局组件</h1>
+    <h2>我来获取父组件内容:{{message2}}</h2>
+</div>
+</template><!--全局组件navbar模板-->
+<template id="app2">
+    <div>
+       {{mytitel}}
+       <h1 v-show="myshow">我会成功的{{myshow}}</h1>
+    </div>
+</template><!--全局组件navbar2模板-->
+<template id="app3">
+<div>
+    <h1>你好{{mytitle}}</h1>
+</div>
+</template>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+Vue.component("navbar",{
+    template:"#app1",
+    props:{
+        message2:String,
+    }
+});//全局组件navbar
+Vue.component("navbar2",{
+    template:"#app2",
+    props:{
+        mytitel:String,
+        myshow:Boolean,
+    },
+})//全局组件navbar2
+Vue.component("navbar3",{
+    template:"#app3",
+    props:{
+        mytitle:{
+        type:String,
+        default:"请记住我的名字"
+
+       }
+    }
+})//全局组件navbar3
+
+
+
+
+
+
+
+
+
+
+const  app=new Vue({//viewmodel
+    el:"#app",
+    data:{
+        message:521,
+    }
+})//model
+</script> 
+</body>
+</html>

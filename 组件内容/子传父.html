@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+    <h1>{{message}}</h1>
+    <cpn @send="send"></cpn>
+    </div><!--view-->
+
+
+<template id="app1">
+<div>
+<button @click="btnclick">点击发送</button>
+</div>
+</template><!--全局组件1模板-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+Vue.component("cpn",{
+    template:"#app1",
+    data(){
+        return{
+            data:"你好，加油",
+        }
+          },
+    methods:{
+        btnclick(){
+            this.$emit("send",this.data); //发送事件
+        } 
+    }
+})//全局组件1
+
+
+const app=new Vue({//viewmodel
+el:"#app",
+data:{
+message:"",
+},
+methods:{
+    send(value){
+        console.log(value);
+        this.message=value;
+        this.isshow=!isshow;
+    }
+}
+})           //model
+    </script>
+</body>
+</html>

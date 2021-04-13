@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style-type: none;
+        }
+        .liitem{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgb(240, 232, 232);
+            height: 160px;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        img{
+            width: 80px;
+           
+        }
+        #btnitem{
+            height: 80px;
+            width: 100%;
+            background-color: slategray;
+            margin-bottom: 3px;
+        }
+        #spanitem{
+            display:inline-block;
+            width:40px;
+            height:20px;
+            line-height: 20px;
+            text-align: center;
+            background-color: tomato;
+            border-radius: 15px;
+            margin-left: 5px;
+        }
+        #value2item{
+            display: flex;
+            font-size: 12px;
+            color:rgb(72, 73, 73);
+        }
+        #xianqing{
+            width: 300px;
+            height: 300px;
+            background-color:rgba( 238, 255, 0, 0.5);
+            position: absolute;
+          top: 200px;
+          left: 500px;
+        }
+        #cpn2item{
+            width:100%;
+            height: 50px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+<div id="btnitem">
+    <button @click="btnclick">axios</button>
+   <div id="cpn2item"> <cpn2></cpn2></div>
+</div>
+<cpn :data="arr"></cpn>
+</div>
+<!--view-->
+
+
+
+<template id="app1">
+<div>
+    <div id="xianqing" v-if="isshow" >{{mydiv}}</div>
+    <ul>
+        <li v-for="value in data" :key="value.filmId" class="liitem">
+          <div><img :src="value.poster"></div>
+          <div><ul>
+            <li><strong>{{value.name}}</strong><span id="spanitem">{{value.item.name}}</span></li>
+            <li>观众评分{{value.grade}}</li>
+            <li><ol id="value2item">主演：<li v-for="value2 in value.actors">{{value2.name}}</li></ol></li>
+            <li>{{value.nation}}|{{value.runtime}}+"分钟"</li>
+          </ul></div>
+          <div><button @click="btnclick2(value)">详情</button></div>
+        </li>
+    </ul>
+</div>
+</template>
+<!--cpn组件模板-->
+<template id="app2">
+    <div>
+        你好
+    </div>
+</template>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+ <script>
+Vue.component("cpn",{
+    template:"#app1",
+    data(){
+return{
+    isshow:false,
+    mydiv:"",
+}
+    },
+    props:{
+        data:Array,
+    },
+    computed:{},
+    methods:{
+        btnclick2(value){
+            this.isshow=true;
+           // console.log(value.synopsis);
+            this.mydiv=value.synopsis;
+
+        }
+    }
+})//cpn组件
+Vue.component("cpn2",{
+    template:"#app2",
+    data(){
+        return{}
+    },
+    methods:{
+
+    },
+})//cpn组件2
+
+
+const app =new Vue({     //viewmodel
+            el:"#app",
+            data:{       //model
+              arr:[],
+              datavalue:"",
+            },
+            methods:{
+                btnclick(){
+                axios({
+                    url:"http://127.0.0.1:5500/%E7%BB%84%E4%BB%B6%E5%86%85%E5%AE%B9/maiauo.json",
+                    methods:"get",
+                }).then(
+                    success=>{
+                       //console.log(success.data.data.films);
+                        this.arr=success.data.data.films;
+                    }
+                )},
+            //axios请求数据
+            }
+        })
+</script>
+</body>
+</html>
