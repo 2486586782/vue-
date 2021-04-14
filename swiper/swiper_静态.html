@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lib/css/swiper.css">
+    <style>
+    .swiper-container {
+    width: 600px;
+    height: 300px;
+}  
+img{
+    width: 100%;
+    height: 100%;
+}
+    </style>
+</head>
+<body>
+      <script src="lib/js/swiper.js"></script><!--通过NPM获取Swiper：npm install swiper-->
+
+
+        <div class="swiper-container">  <!--swiper容器-->
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="./lib/img/p1.gif"></div>       <!--轮播的三个内容包裹-->
+            <div class="swiper-slide"><img src="./lib/img/p2.jpg"></div>
+            <div class="swiper-slide"><img src="./lib/img/p3.gif"></div>
+        </div>
+
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+    
+
+        <script>        
+        new Swiper ('.swiper-container',{
+            loop:true,//循环模式选项
+            //direction: 'vertical', // 垂直切换选项
+
+
+        speed: 2000,
+        navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+
+
+      pagination: {
+        el: '.swiper-pagination',
+        dynamicBullets: true,
+      },
+        })
+        </script>
+</body>
+</html>

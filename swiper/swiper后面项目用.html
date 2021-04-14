@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lib/css/swiper.css">
+    <script src="lib/js/swiper.js"></script><!--通过NPM获取Swiper：npm install swiper-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+   .swiper-container {
+    width: 600px;
+    height: 300px;
+            }  
+          img{
+width:100%;
+             }
+    </style>
+</head>
+<body>
+<div id="app">
+<swiper :key="datalist.length">
+<div class="swiper-slide" v-for="item in datalist">
+    <img :src="item">
+</div>
+</swiper>     <!--swiper组件-->
+</div>
+
+<template id="app1">
+    <div class="swiper-container">  <!--swiper容器-->
+        <div class="swiper-wrapper">
+           <slot></slot>
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</template>           <!--swiper模板-->  
+
+
+<script> 
+Vue.component("swiper",{
+    template:"#app1",       //swiper组件
+    mounted() {
+    new Swiper ('.swiper-container',{
+            loop:true,//循环模式选项
+            //direction: 'vertical', // 垂直切换选项
+        speed: 2000,
+        navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+        pagination: {
+        el: '.swiper-pagination',
+        dynamicBullets: true,
+      },
+        })
+},
+})
+
+
+const app=new Vue({  //viewmodel
+el:"#app",
+data:{
+    datalist:[],        
+},
+mounted() {
+    setTimeout(()=>{
+    this.datalist=["https://static.maizuo.com/pc/v5/usr/movie/637447e2e85b1efebbc53bc05098d363.jpg?x-oss-process=image/quality,Q_70","https://static.maizuo.com/pc/v5/usr/movie/947906c4689a464364b5d96e977de6d2.jpg?x-oss-process=image/quality,Q_70","https://static.maizuo.com/pc/v5/usr/movie/b6531574f2b8d431c540ecdcd539f1d4.jpg?x-oss-process=image/quality,Q_70"]        //假数据
+    },1000)
+},
+})
+</script>
+</body>
+</html>

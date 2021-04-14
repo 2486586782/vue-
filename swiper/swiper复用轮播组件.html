@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" href="lib/css/swiper.css">
+    <script src="lib/js/swiper.js"></script><!--通过NPM获取Swiper：npm install swiper-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+   .swiper-container {
+    width: 600px;
+    height: 300px;
+            }  
+          img{
+    width: 100%;
+    height: 100%;
+             }
+    </style>
+</head>
+<body>
+
+
+<div id="app">
+<swiper :arrdata="datalist"></swiper>     <!--swiper组件-->
+</div>
+
+
+<template id="app1">
+    <div class="swiper-container">  <!--swiper容器-->
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="item in arrdata"><img :src="item"></div>  <!--轮播的三个内容包裹-->
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+    </div>
+</template>           <!--swiper模板-->  
+<script> 
+Vue.component("swiper",{
+    template:"#app1",       //swiper组件
+     props:{arrdata:Array},
+
+    updated() {
+    new Swiper ('.swiper-container',{
+            loop:true,//循环模式选项
+            //direction: 'vertical', // 垂直切换选项
+        speed: 2000,
+        navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+        pagination: {
+        el: '.swiper-pagination',
+        dynamicBullets: true,
+      },
+        })
+},
+
+
+})
+
+
+
+const app=new Vue({  //viewmodel
+el:"#app",
+data:{
+    datalist:[],        
+},
+mounted() {
+    setTimeout(()=>{
+    this.datalist=["./lib/img/p1.gif","./lib/img/p2.jpg","./lib/img/p3.gif"]        //假数据
+    },2000)
+},
+})
+</script>
+</body>
+</html>

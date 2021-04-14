@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<div id="app">
+<div v-hello=" 'red' ">111111111111111111</div>
+<div v-hello=" 'yellow' ">111111111111111111</div>
+<div v-hello=" 'blue' ">111111111111111111</div>
+<div v-hello="isclor">111111111111111111</div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+
+
+Vue.directive("hello",{
+    //指令的生命周期
+    inserted(el,banding){
+        console.log("绑定当前指令的标签插入父节点就会执行",el,banding);
+        el.style.background=banding.value;
+    },
+    update(el,banding){
+        console.log("绑定当前指令更新发生改变");
+        el.style.background=banding.value;
+    },
+})
+
+
+const app=new Vue({
+el:"#app",
+data:{
+    isclor:"yellow"
+},
+})
+</script>
+</body>
+</html>
