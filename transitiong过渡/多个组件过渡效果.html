@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        footer{
+height:44px;
+width:100%;
+background:linear-gradient(to top,rgb(83, 82, 82),rgb(230, 223, 223));
+position: fixed;
+left: 0;
+right: 0;
+bottom:0;
+z-index: 999;
+        }
+        ul{
+display: flex;
+justify-content:space-around;
+align-items: center;
+        }
+        li{
+            list-style-type: none;
+        }
+        #ppa1{
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background-color: brown;
+        }
+        #ppa2{
+            width: 100%;
+            height: 600px;
+            background-color: rgb(42, 165, 48);
+        }
+        #ppa3{
+            width: 100%;
+            height: 600px;
+            background-color: rgb(165, 42, 155);
+        }
+
+
+
+         .cartoon-enter-active{
+             animation:aaa .5s;     /*进场动画*/
+         }
+
+        .cartoon-leave-active{
+             animation:aaa .5s reverse;    /*离场动画*/
+         }
+        @keyframes aaa{
+            0%{
+                 opacity: 0;
+                 transform: translatey(-100px);
+             }
+             100%{
+                 opacity: 1;
+                 transform: translatey(0px);
+            }
+         }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+
+<keep-alive>
+<transition name="cartoon" mode="out-in">
+<component :is="iswhich"></component>   <!--动态组件-->
+</transition>
+</keep-alive>      <!--保持活着-->
+
+
+
+<footer>    <!--地部导航栏-->
+    <ul>
+        <li @click="li1click">首页</li>
+        <li @click="li2click">列表</li>
+        <li @click="li3click">购物车</li>
+    </ul>
+</footer>
+    </div><!--view-->
+
+
+
+<template id="app1">
+        <div id="ppa1">
+            我是home
+        </div>
+</template>
+<template id="app2">
+        <div id="ppa2">
+            我是list
+            <input type="text">
+        </div>
+</template>
+
+<template id="app3">
+            <div id="ppa3">
+                我是shop
+            </div>
+</template>                       <!--三个组件模板-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+
+      Vue.component("home",{
+            template:"#app1"
+        })
+      Vue.component("list",{
+            template:"#app2"
+        })
+      Vue.component("shop",{
+            template:"#app3"
+        })                    //三个组件
+
+
+
+
+        const app=new Vue({
+            el:"#app",
+            data:{
+                iswhich:"home"    //来确定绑定的是哪一个
+                 },
+                 methods:{
+                    li1click(){
+                        this.iswhich="home"
+
+                    },
+                    li2click(){
+                        this.iswhich="list"
+
+                    },
+                    li3click(){
+                        this.iswhich="shop"
+
+                    },
+
+                 }
+        })
+    </script>
+</body>
+</html>

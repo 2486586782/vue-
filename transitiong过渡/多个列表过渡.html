@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         .cartoon-enter-active{
+             animation:aaa .5s;     /*进场动画*/
+         }
+
+        .cartoon-leave-active{
+             animation:aaa .5s reverse;    /*离场动画*/
+         }
+        @keyframes aaa{
+            0%{
+                 opacity: 0;
+                 transform: translatey(-100px);
+             }
+             100%{
+                 opacity: 1;
+                 transform: translatey(0px);
+            }
+         }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="addstr">
+        <button @click="btnclick">add</button>
+        <div v-if="addarr.length===0">列表空空如也</div>
+       <!--<ul v-else>-->  <!--多个列表过渡-->
+            <transition-group name="cartoon" tag="ul" v-else> <!--注意点：transition-group会默认成为一个span标签--> 
+            <li v-for="(item,index) in addarr" :key="item">
+                {{item}}<button @click="remoclick(index)">删除</button>
+            </li>
+         </transition-group>
+        <!--</ul>-->
+        
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        const app=new Vue({
+            el:"#app",
+            data:{
+                mess:0,
+                addarr:[],
+                addstr:"",
+            },
+            methods:{
+                btnclick(){
+                    this.addarr.push(this.addstr);
+                    this.addstr="";
+                },
+                remoclick(index){
+                    this.addarr.splice(index,1)
+                }
+            }
+        })
+    </script>
+</body>
+</html>

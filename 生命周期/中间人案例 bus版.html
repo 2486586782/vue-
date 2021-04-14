@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        li{
+            list-style-type: none;
+        }
+        img{
+            width: 80px;
+           
+        }
+        .liitem{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+           margin-bottom: 5px;
+           background-color: slategray;
+        }
+        #value2item{
+            display: flex;
+            font-size: 12px;
+            color:rgb(72, 73, 73);
+            width: 300px;
+            overflow: hidden;
+            white-space: normal;
+           text-overflow: ellipsis;
+           margin-right: 2px;
+                }
+                #app{
+                    width: 100%;
+                    display: flex;
+                }
+                #ppa1{
+                     width: 50%;
+                }
+                #ppa2{
+                    width: 50%;
+                    background-color: aqua;
+                }
+            #spanitem{       
+            display:inline-block;
+            width:40px;
+            height:20px;
+            line-height: 20px;
+            text-align: center;
+            background-color: tomato;
+            border-radius: 15px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">                        <!--我是作者：章， 如果需要看内容展现请使用live Server打开浏览器-->
+        <cpn1></cpn1>
+        <cpn2></cpn2>                       <!--或修改路径-->
+    </div><!--view-->
+
+<template id="app1">
+<div id="ppa1">
+   <ul>
+    <li v-for="value in arr" :key="value.filmId" class="liitem">
+      <div><img :src="value.poster"></div>
+      <div>
+          <ul>
+        <li><strong>{{value.name}}</strong><span id="spanitem">{{value.item.name}}</span></li>
+        <li>观众评分{{value.grade}}</li>
+        <li><ol id="value2item">主演：<li v-for="value2 in value.actors">{{value2.name}}</li></ol></li>
+        <li>{{value.nation}}|{{value.runtime}}+"分钟"</li>
+      </ul>
+    </div>
+      <div><button @click="btnapp1(value)">详情</button></div>
+    </li>
+</ul>
+</div>
+</template>
+<!--cpn1模板-->
+<template id="app2">
+        <div id="ppa2">
+        <h1>
+            详情内容：
+        </h1>
+        <h2 style="color: blue;">
+            {{mess}}
+        </h2>
+        </div>
+</template>
+<!--cpn1模板-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+const bus= new Vue();//中央事件总线，创建空的vue实例
+
+        Vue.component("cpn1",{
+            template:"#app1",
+            data(){
+                return{
+                   arr:[]
+                }
+            },
+            methods:{
+                btnapp1(value){
+                    bus.$emit("information",value.synopsis)//通过bus.$emit发生
+                  
+                }
+            },
+            mounted(){
+                axios({
+                    url:"./maiauo.json",
+                    methods:"get"
+                }).then(
+                    success=>{
+                       // console.log(success.data.data.films);
+                        this.arr=success.data.data.films;
+                    }
+                )  
+            }                                                //axios获取请求
+        })
+
+
+Vue.component("cpn2",{
+    template:"#app2",
+            data(){
+                return{
+                   mess:""
+                }
+            },
+            mounted(){
+            bus.$on("information",(data)=>{                   //同过bus.$on监听
+                //console.log(data);
+                this.mess=data
+            })
+            }
+
+            
+        })
+
+
+
+
+
+
+
+
+
+
+
+        const app=new Vue({
+            el:"#app",
+            data:{
+                message:0
+            }
+        })
+    </script>
+</body>
+</html>

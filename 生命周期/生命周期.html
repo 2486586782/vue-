@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+    <button @click="btnclick">点击修改</button>
+    {{mess}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+const app=new Vue({
+    el:"#app",
+    data:{
+        mess:0
+    },
+    methods:{
+        btnclick(){
+            this.mess=1;
+        }
+    },
+    beforeCreate(){
+        console.log("beforecreate的生命周期被创建",this.mess)  //组件创建之前
+    },
+    created(){
+        console.log("created的生命周期被创建",this.mess)     //组件创建之后（可以修改data数据状态，做初始化工作）
+    },
+    beforeMount(){
+        console.log("beforeMount的生命周期被创建")   //页面dom挂载之前（可以修改data数据状态，无法访问dom）
+                                              //(自己在服务端渲染，这个函数会在客户端和服务端各自触发一次)
+    },
+    mounted(){
+        console.log("Mounted的生命周期被创建")      //页面dom挂载之后（访问dom,监听事件，Ajax请求，设置定时器）
+    },
+    beforeUpdata(){
+        console.log("beforeUpdata的生命周期被创建")   //页面修改前
+    },
+    updated(){
+        console.log("Updated的生命周期被创建")      //页面发生修改的时候触发
+    },
+    beforeDestroy(){
+        console.log("beforeDestroy的生命周期被创建")   //组件销毁前
+    },
+    destroyed(){
+        console.log("destroyed的生命周期被创建")  //组件销毁后
+    }
+
+})
+    </script>
+</body>
+</html>
