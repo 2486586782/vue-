@@ -7,6 +7,7 @@ const Message=()=>import("../views/maincontent/Message")
 const Mine=()=>import("../views/maincontent/Mine")
 const ChildrenIshit=()=>import("../views/MoviePagechildren/ChildrenIshit")
 const ChildrenUpcoming=()=>import("../views/MoviePagechildren/ChildrenUpcoming")
+const Details=()=>import("../views/Detailspage/Details")
 const routes = [
   {
     path:"",
@@ -41,8 +42,11 @@ const routes = [
 {
   path:"/mine",
   component:Mine
-}
-
+},
+{
+  path:"/details/:id",
+  component:Details
+},
 ]
 const router = new VueRouter({
   routes,

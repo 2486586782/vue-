@@ -42,7 +42,7 @@ export default {
     bottom: 0;
     text-align: center;
     font-size: 10px;
-    
+    z-index: 10;
 }
 .icon{
     font-size: 25px;

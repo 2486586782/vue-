@@ -1,19 +1,26 @@
 <template>
-    <div>
+    <div id="ChildrenIshititem">
         <ul>
-            <li v-for="item in datalist" :key="item.filmId">
+            <li v-for="item in datalist" :key="item.filmId" @click="btnclick(item.filmId)">
                 <div><img :src="item.poster"></div>
-                <div>
+                <div class="lastchild2">
                    <div class="itemname"><h4>{{item.name}}</h4><span>{{item.filmType.name}}</span></div>
-                   <div>主演：</div>
+                    <div class="itemgrade">观众评分:<span>{{item.grade}}</span></div>
+                    <div>{{item.nation}} | {{item.runtime}}分钟</div>
+                   <div class="itemactors2">主演:{{item.actors | itemactrs}}</div>
                 </div>
-                <div></div>
+                <div><button>购票</button></div>
             </li>
         </ul>
     </div>
 </template>
 <script>
-import axios from "axios"
+import http from "@/network/http.js"
+import vue from "vue"
+vue.filter("itemactrs",(actrs)=>{
+    if(actrs===undefined){return "暂无主演"}
+      return actrs.map((n)=>{ return n.name;}).join(" ");
+})//过滤器
 export default {
    name:"ChildrenIshit",
     data(){
@@ -21,12 +28,16 @@ export default {
 datalist:[],//接受数据
   }
    },
+   methods: {
+       btnclick(id){
+           this.$router.push(`/details/${id}`)
+       }
+   },
    mounted() {
-  axios({
-  url:"https://m.maizuo.com/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=3129205",
+  http({
+  url:"/gateway?cityId=110100&pageNum=1&pageSize=10&type=1&k=3129205",
   method:"get",
   headers:{
-  'X-Client-Info':'{"a":"3000","ch":"1002","v":"5.0.4","e":"16182898373160717972733953","bc":"110100"}',
   'X-Host':'mall.film-ticket.film.list',
   }
 }).then(success=>{
@@ -36,16 +47,36 @@ datalist:[],//接受数据
 }
 </script>
 <style scoped>
+#ChildrenIshititem{
+    width: 100vw;
+}
+ul{
+     width: 100vw;
+}
 ul li{
     display: flex;
-    margin:40px 20px 40px 20px ;
+    margin:20px 20px  30px 20px;
+    justify-content:space-around;
+    align-items: center;
 }
+
 ul li img{
     width: 80px;
 }
+
+.lastchild2{
+    flex: 1;
+    position: relative;
+}
+
 .itemname{
     display: flex;
+    width: 220px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
 .itemname span{
     width: 40px;
     height: 20px;
@@ -53,5 +84,20 @@ ul li img{
     background-color: silver;
     text-align: center;
     line-height: 20px;
+    margin-left: 5px;
+}
+
+.itemactors2{
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.itemgrade span{
+color: rgb(233, 162, 8);
 }
 </style>
+
+
