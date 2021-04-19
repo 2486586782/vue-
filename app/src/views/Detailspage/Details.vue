@@ -1,6 +1,6 @@
 <template>
     <div v-if="detailslistdata">
-      <div id="headnavigation" v-if="headisshow">1111</div>     <!--4.18思路处-->
+      <detailsheader v-header :titleA="detailslistdata.name"></detailsheader>
       <div class="dataimg"><img :src="detailslistdata.poster"></div>
       <!--标题图-->
       <div class="dataitem">
@@ -35,7 +35,7 @@
               <div><span>剧照</span><span>全部</span></div>
               <details-01-swiper :pres="3" swiperclass="stagephoto">
                     <div class="swiper-slide" v-for="(item,data) in detailslistdata.photos" :key="data" >
-                        <img :src="item"/>
+                        <img :src="item"  @click="imgbtn(data)"/>
                         </div>     
               </details-01-swiper>
           </div>
@@ -43,27 +43,49 @@
  <!--剧照图轮播-->
 </template>
 <script>
+import {ImagePreview} from 'vant';//导入vantz组件
 import Vue from "vue"         //导入vue
 import moment from "moment"  //导入日期转换库
 import http from "@/network/http.js"
 import Details01Swiper from './Details01Swiper.vue'
+import Detailsheader from './Detailsheader.vue'
 
 Vue.filter("premiereAtdatatime",(data)=>{    //使用过滤器
     return  moment(data).format('YYYY-MM-DD')  //使用日期转换库
 })
+Vue.directive("header",{     //自定义指令
+    inserted(el){
+       el.style.display="none";
+       window.onscroll=()=>{
+            if(document.body.scrollTop || document.documentElement.scrollTop >50){
+               el.style.display="block";
+               }else{
+                 el.style.display="none";
+               }}} ,
+               unbind(){     //销毁指令
+                   window.onscroll=null
+               }  
+})
 export default {
-  components: { Details01Swiper },
+  components: { Details01Swiper, Detailsheader },
     name:"Details",
     data(){
         return{
             detailslistdata: null ,   //接受数据
             isshow:true,
-            headisshow:false,
+
         }
     },
     methods: {
         btnisshow(){
             this.isshow=!this.isshow;
+        },
+        imgbtn(data){
+            ImagePreview({
+  images:this.detailslistdata.photos,
+  startPosition: data,
+   closeable: true,
+});
         }
     },
     mounted() {
@@ -74,18 +96,6 @@ export default {
             res=>{console.log(res.data.data.film);
             this.detailslistdata=res.data.data.film;
             })//数据请求
-
-           window.onscroll=()=>{
-               if(document.documentElement.scrollTop>50){
-               this.headisshow=true;
-               console.log("显示")
-
-               }else{
-                   this.headisshow=false;
-                   console.log("隐藏")
-               }
-           } 
-
          },
 
       
