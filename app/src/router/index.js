@@ -9,6 +9,8 @@ const ChildrenIshit=()=>import("../views/MoviePagechildren/ChildrenIshit")
 const ChildrenUpcoming=()=>import("../views/MoviePagechildren/ChildrenUpcoming")
 const Details=()=>import("../views/Detailspage/Details")
 const Login=()=>import("../views/login/Login")
+const City=()=>import("../views/Theaterpagechildren/City")
+const Search=()=>import("../views/Theaterpagechildren/Search")
 const routes = [
   {
     path:"",
@@ -52,6 +54,15 @@ const routes = [
   path:"/login",
   component:Login
 },
+{
+path:"/city",
+component:City
+},
+{
+  path:"/search",
+  component:Search
+
+}
 ]
 const router = new VueRouter({
   routes,

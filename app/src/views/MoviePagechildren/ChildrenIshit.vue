@@ -42,7 +42,7 @@ datalist:[],//接受数据
      this.current++
 //Ajax请求新数据
  http({
-  url:`/gateway?cityId=110100&pageNum=${this.current}&pageSize=10&type=1&k=3129205`,
+  url:`/gateway?cityId=${this.$store.state.cityId}&pageNum=${this.current}&pageSize=10&type=1&k=3129205`,
   method:"get",
   headers:{
   'X-Host':'mall.film-ticket.film.list',

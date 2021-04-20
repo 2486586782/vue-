@@ -1,8 +1,8 @@
 <template>
 <div>
-     <van-nav-bar title="影院" left-arrow>
+    <van-nav-bar title="影院" left-arrow @click-left="clickleft" @click-right="clickright"> 
     <template #left>
-    上海
+    {{$store.state.cituName}}
     <van-icon name="arrow-down" size="18" color="black" />
     </template> 
     <template #right>
@@ -35,9 +35,21 @@ export default {
          TheaterPagelist:[]     //接受数据
        }
    },
+   methods: {
+       clickleft(){
+           this.$router.push("/city")
+       }, 
+       clickright (){
+        this.$router.push("/search")
+       }                               //navber绑定事件
+   },
    mounted() {
+       //隐藏底部导航栏
+       this.$store.commit("bottomhidden")
+
+
        http({
-           url:"/gateway?cityId=310100&ticketFlag=1&k=52112",
+           url:`/gateway?cityId=${this.$store.state.cityId}&ticketFlag=1&k=52112`,
            headers:{
              'X-Host':'mall.film-ticket.cinema.list',
               "X-Client-Info":'{"a":"3000","ch":"1002","v":"5.0.4","e":"16182898373160717972733953","bc":"110100"}'
@@ -55,6 +67,10 @@ export default {
             })
        });
 
+   },
+   beforeDestroy() {
+        //显示底部导航栏
+         this.$store.commit("bottomdisplay")
    },
 }
 </script>

@@ -3,7 +3,7 @@
     <div id="view">
 <router-view></router-view>
     </div>
-<zzq-tabber></zzq-tabber>
+<zzq-tabber v-show="$store.state.zzqtabbershow"></zzq-tabber>
   </div>
 </template>
 
