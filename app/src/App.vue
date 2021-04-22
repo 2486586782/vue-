@@ -3,7 +3,7 @@
     <div id="view">
 <router-view></router-view>
     </div>
-<zzq-tabber v-show="$store.state.zzqtabbershow"></zzq-tabber>
+<zzq-tabber v-show="this.$store.state.zzqtabbershow"></zzq-tabber>
   </div>
 </template>
 
@@ -12,9 +12,6 @@
 import ZzqTabber from './components/tabbar/ZzqTabber'
 export default {
   components: { ZzqTabber },
-  
-
-
 }
 </script>
 <style>

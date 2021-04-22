@@ -5,28 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .iscolor{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
-<input type="checkbox" v-model="arr"  value="vue">Vue
-<input type="checkbox" v-model="arr"  value="js">js 
-<input type="checkbox" v-model="arr"  value="css">css
-<button @click="btn">提交</button>
-<div>{{arr}}</div>
+<ul>
+    <li v-for="(item,data) in arr" @click="colorclick(data)" :class="data===m?'iscolor':''">{{item}}</li>
+</ul>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
        const app=new Vue({
            el:"#app",
            data:{
-                mess:0,
-                arr:[],
+               arr:["111","222","333"],
+               m:0,
            },
-           methods:{
-               btn(){
-                   console.log(this.arr)
-               }
-           }
+        methods: {
+            colorclick(data){
+                this.m=data
+
+            }
+        },
+             
        })
     </script>
 </body>

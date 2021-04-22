@@ -8,24 +8,22 @@
 </head>
 <body>
     <div id="app">
-      <input type="radio" value="vue" v-model="Str" name="input1">Vue
-      <input type="radio" value="js" v-model="Str" name="input1">js
-      <input type="radio" value="css" v-model="Str" name="input1">css
-      <button @click="btn">点击</button>
-      {{Str}}
+     {{up}}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        const app=new Vue({
+        const app =new Vue({
             el:"#app",
             data:{
-               Str:"vue",
+                name:"qinling"
             },
-            methods:{
-                btn(){
-                    console.log(this.Str)
+            computed:{
+                up(){
+                    return this.name.substring(0,1).toUpperCase()+this.name.substring(1);
                 }
+
             }
+
         })
     </script>
 </body>

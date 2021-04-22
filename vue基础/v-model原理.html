@@ -8,23 +8,32 @@
 </head>
 <body>
 <div id="app">
-<input type="checkbox" v-model="arr"  value="vue">Vue
-<input type="checkbox" v-model="arr"  value="js">js 
-<input type="checkbox" v-model="arr"  value="css">css
+<input type="text" @input="inputvalue">
 <button @click="btn">提交</button>
-<div>{{arr}}</div>
+<div>
+    <ul>
+    <li v-for="(item,data) in arr">{{item}}<button @click="remo(data)">删除</button></li>
+    </ul>
+</div>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
        const app=new Vue({
            el:"#app",
            data:{
-                mess:0,
                 arr:[],
+                value:""
            },
            methods:{
+              inputvalue(e){
+                   console.log(e.target.value),
+                   this.value=e.target.value
+               },
                btn(){
-                   console.log(this.arr)
+                this.arr.push(this.value)
+               },
+               remo(data){
+                  this.arr.splice(data,1)
                }
            }
        })

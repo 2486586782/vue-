@@ -11,7 +11,7 @@
      </van-nav-bar>
     <div class="scrollinghelper">
       <ul>
-          <li v-for="item in TheaterPagelist" :key="item.cinemaId">
+          <li v-for="item in $store.state.Theaterpagelist" :key="item.cinemaId">
               <div class="itemname"><div>{{item.name}}</div><span>{{item.lowPrice | itemlowPrice}}</span></div>
               <div class="itemaddress"><div>{{item.address}}</div></div>
           </li>
@@ -24,7 +24,7 @@ import { NavBar,icon} from 'vant';
 Vue.use(NavBar).use(icon);
 import BetterScroll from "better-scroll"
 import Vue from "vue"   //引入vue
-import http from "@/network/http.js"  //引入http
+
 Vue.filter("itemlowPrice",(data)=>{   //过滤器
     return '￥'+data/100+"起"
 })
@@ -37,35 +37,43 @@ export default {
    },
    methods: {
        clickleft(){
+           //清空Theaterpagelist
+           this.$store.commit("clearTheaterpagelist");
            this.$router.push("/city")
        }, 
        clickright (){
-        this.$router.push("/search")
+        this.$router.push("/theaterpage/search")
        }                               //navber绑定事件
    },
    mounted() {
        //隐藏底部导航栏
        this.$store.commit("bottomhidden")
 
+if(this.$store.state.Theaterpagelist.length===0){
+      this.$store.dispatch("Theaterpageajax",this.$store.state.cityId).then(
+       this.$nextTick(()=>{        //等结束后触发
+        new BetterScroll(".scrollinghelper",{
+            scrollbar:{
+                fade:true         //滚动条设置
+            }
+        })       //使用BetterScroll
+         })
+      )
+}else{
+     this.$nextTick(()=>{        //等结束后触发
+        new BetterScroll(".scrollinghelper",{
+            scrollbar:{
+                fade:true         //滚动条设置
+            }
+        })       //使用BetterScroll
+         })
+    console.log("缓存")                   //vuex异步
+}
+       
 
-       http({
-           url:`/gateway?cityId=${this.$store.state.cityId}&ticketFlag=1&k=52112`,
-           headers:{
-             'X-Host':'mall.film-ticket.cinema.list',
-              "X-Client-Info":'{"a":"3000","ch":"1002","v":"5.0.4","e":"16182898373160717972733953","bc":"110100"}'
-           }
-       }).then(
-       res=>{
-           console.log(res.data.data.cinemas);
-           this.TheaterPagelist=res.data.data.cinemas;
-           this.$nextTick(()=>{        //等结束后触发
-           new BetterScroll(".scrollinghelper",{
-               scrollbar:{
-                   fade:true         //滚动条设置
-               }
-           })       //使用BetterScroll
-            })
-       });
+
+
+
 
    },
    beforeDestroy() {

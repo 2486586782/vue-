@@ -59,9 +59,8 @@ path:"/city",
 component:City
 },
 {
-  path:"/search",
+  path:"/theaterpage/search",
   component:Search
-
 }
 ]
 const router = new VueRouter({

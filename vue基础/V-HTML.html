@@ -8,25 +8,18 @@
 </head>
 <body>
 <div id="app">
-<input type="checkbox" v-model="arr"  value="vue">Vue
-<input type="checkbox" v-model="arr"  value="js">js 
-<input type="checkbox" v-model="arr"  value="css">css
-<button @click="btn">提交</button>
-<div>{{arr}}</div>
+<div v-html="vuluestr">{{mess}}</div>
 </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
        const app=new Vue({
            el:"#app",
            data:{
-                mess:0,
-                arr:[],
+                mess:"文本",
+                vuluestr:"<h1>你是好样的</h1>",
            },
-           methods:{
-               btn(){
-                   console.log(this.arr)
-               }
-           }
+           methods:{}
+             
        })
     </script>
 </body>
