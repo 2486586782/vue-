@@ -8,6 +8,7 @@
 </head>
 <body>
     <div id="app">
+        <input type="tel" ref="telref">
         <input type="text" ref="myref">
         <div ref="mydivref">我可以</div>
         <button @click="btnclick">
@@ -18,6 +19,7 @@
 
     <template id="app1">
         <div>
+            {{mess}}
         </div>
     </template><!--cpn模板-->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -39,6 +41,7 @@ const app=new Vue({
             },
             methods:{
                 btnclick(){
+                    console.log(this.$refs.telref.value)
                     console.log(this.$refs.myref.value);  //点击拿原生节点的值
                     console.log(this.$refs.mydivref);     //点击拿原生节点的属性
                     console.log(this.$refs.mycpn._data.mess)  //拿到cpn组件的全部值

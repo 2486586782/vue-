@@ -8,18 +8,13 @@
 </head>
 <body>
     <div id="app">
-        {{mess}}
-        <cpn>
-            <div slot="a1">无邪</div>
-            <div slot="a2">王胖子</div>
-        </cpn>
+<cpn></cpn>{{mess}}
     </div>
-    
+
+
     <template id="app1">
     <div>
-    <slot name="a1"></slot>
-       {{message}}
-    <slot name="a2"></slot>
+        {{message}}
     </div>
     </template>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -28,19 +23,17 @@
             template:"#app1",
             data(){
                 return{
-                    message:"起灵"
+                    message:"大家"
                 }
             }
         })
-
-
-
         const app=new Vue({
             el:"#app",
             data:{
-                mess:0
+                mess:"你好"
             }
         })
+
     </script>
 </body>
 </html>
