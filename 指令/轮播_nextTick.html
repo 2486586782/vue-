@@ -23,7 +23,7 @@ width:100%;
 <template id="app1">
         <div class="swiper-container">  <!--swiper容器-->
             <div class="swiper-wrapper">
-                <div class="swiper-slide" v-for="(item,index) in datalist" v-swiper="{current:index,length:datalist.length}"><img :src="item"></div>  <!--轮播的三个内容包裹-->
+                <div class="swiper-slide" v-for="(item,index) in datalist"><img :src="item"></div>  <!--轮播的三个内容包裹-->
             </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>

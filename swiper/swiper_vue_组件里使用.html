@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="lib/css/swiper.css">
+    <script src="lib/js/swiper.js"></script><!--通过NPM获取Swiper：npm install swiper-->
+    <style>
+    .swiper-container {
+     width: 600px;
+     height: 300px;    }  
+
+     img{
+        width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+  <cpn>                                                        <!--:key="item.length"-->
+    <div class="swiper-slide"><img :src="img1.poster"></div>
+    <div class="swiper-slide"><img :src="img2.poster"></div>
+    <div class="swiper-slide"><img :src="img3.poster"></div>
+  </cpn>
+  </div>
+
+     <template id="app1">
+      <div class="swiper-container">
+      <div class="swiper-wrapper">
+          <slot></slot>
+       </div>
+      <!-- Add Pagination -->
+      <div class="swiper-pagination"></div>
+      <!-- Add Arrows -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      </div>
+      </div>
+    </template>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script>
+      Vue.component("cpn",{
+      template:"#app1",
+      mounted() {
+      var swiper = new Swiper('.swiper-container', {
+        
+      speed: 2000,
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoplay: {
+        delay: 4000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      });
+      },
+      })
+
+
+     const app=new Vue({
+              el:"#app",
+              data:{
+                message:0,
+                img1:{},
+                img2:{},
+                img3:{},
+            },
+            mounted() {
+           axios("./lib/json/maiauo.json",{
+                 methods:"get",
+                }).then(
+                res=>{
+                //console.log(res.data.data.films);
+                this.img1=res.data.data.films[0];
+                this.img2=res.data.data.films[1];
+                this.img3=res.data.data.films[2];
+                      }
+                  )},
+})
+            </script>
+</body>
+</html>
